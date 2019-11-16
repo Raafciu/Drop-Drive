@@ -1,4 +1,6 @@
 import {Injectable} from '@angular/core';
+import {UserService} from '../../user.service';
+import {User} from '../../../model/user';
 
 //TODO parametry do zmiany
 const CLIENT_ID = '733757192795-19hiob2sv7vb1e91qg1hb776nu6n30ve.apps.googleusercontent.com';
@@ -10,17 +12,38 @@ const SCOPES = 'https://www.googleapis.com/auth/drive';
 export class GapiSession {
   googleAuth: gapi.auth2.GoogleAuth;
 
+  constructor(private userService: UserService) {
+  }
+
   initClient(): Promise<any> {
-    return new Promise(((resolve, reject) => {
-      return gapi.client.init({
-        apiKey: API_KEY,
-        clientId: CLIENT_ID,
-        discoveryDocs: DISCOVERY_DOCS,
-        scope: SCOPES
-      }).then(() => {
-        this.googleAuth = gapi.auth2.getAuthInstance();
-        resolve();
+    return new Promise((resolve, reject) => {
+      gapi.load('client:auth2', () => {
+        return gapi.client.init({
+          apiKey: API_KEY,
+          clientId: CLIENT_ID,
+          discoveryDocs: DISCOVERY_DOCS,
+          scope: SCOPES
+        }).then(() => {
+          this.googleAuth = gapi.auth2.getAuthInstance();
+          resolve();
+        });
       });
-    }));
+    });
+  }
+
+  signIn() {
+    return this.googleAuth.signIn({
+      prompt: 'consent'
+    }).then((googleUser: gapi.auth2.GoogleUser) => {
+      this.userService.addUser(googleUser.getBasicProfile());
+    });
+  }
+
+  getAllUsers(): Set<User> {
+    return this.userService.getAll();
+  }
+
+  get isSignedIn(): boolean {
+    return this.googleAuth.isSignedIn.get();
   }
 }

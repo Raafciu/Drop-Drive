@@ -1,4 +1,5 @@
 import {Component} from "@angular/core";
+import {GapiSession} from '../../service/infrastucture/sessions/gapi.session';
 
 @Component({
   selector: 'google-drive-api',
@@ -7,4 +8,15 @@ import {Component} from "@angular/core";
 })
 export class GoogleDriveApiComponent {
 
+  constructor(private gapiSession: GapiSession){
+  }
+
+  signIn() {
+    this.gapiSession.signIn()
+      .then(() => {
+        if(this.gapiSession.isSignedIn) {
+          console.log('Zalogowany');
+        }
+      });
+  }
 }
