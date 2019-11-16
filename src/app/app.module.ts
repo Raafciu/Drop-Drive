@@ -1,20 +1,23 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {ProductListComponent} from "./components/product-list/product-list.component";
-import {TopBarComponent} from "./components/top-bar/top-bar.component";
-import {ProductDetailsComponent} from "./components/product-details/product-details.component";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MaterialModule} from "./material.module";
+import {MaterialModule} from './material.module';
+import {GoogleDriveApiComponent} from './components/google-drive-api/google-drive-api.component';
+import {GapiSession} from './service/infrastucture/sessions/gapi.session';
+import {MainMenuComponent} from './components/main-menu/main-menu.component';
+
+export function initGapi(gapiSession: GapiSession) {
+  return () => gapiSession.initClient();
+}
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductListComponent,
-    TopBarComponent,
-    ProductDetailsComponent
+    GoogleDriveApiComponent,
+    MainMenuComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +25,11 @@ import {MaterialModule} from "./material.module";
     BrowserAnimationsModule,
     MaterialModule
   ],
-  providers: [],
+  providers: [
+    //TODO narazie coś nie działa inicjalizacja klienta
+    // {provide: APP_INITIALIZER, useFactory: initGapi, deps: [GapiSession], multi: true},
+    GapiSession
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
