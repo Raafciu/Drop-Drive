@@ -14,6 +14,7 @@ import {HomeComponent} from './components/home/home.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {UserService} from './service/user.service';
 import {FileService} from './service/file.service';
+import {NotificationService} from './service/notification.service';
 
 export function initGapi(gapiService: GapiService) {
   return () => gapiService.initClient();
@@ -36,11 +37,11 @@ export function initGapi(gapiService: GapiService) {
     FlexLayoutModule
   ],
   providers: [
-    //TODO narazie coś nie działa inicjalizacja klienta
     {provide: APP_INITIALIZER, useFactory: initGapi, deps: [GapiService], multi: true},
     GapiService,
     UserService,
-    FileService
+    FileService,
+    NotificationService
   ],
   bootstrap: [AppComponent]
 })

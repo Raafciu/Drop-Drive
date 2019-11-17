@@ -20,6 +20,12 @@ export class FileService {
     });
   }
 
+  deleteFile(fileId: string) {
+    return gapi.client.drive.files.delete({
+      fileId: fileId
+    });
+  }
+
   private static createFileFromGoogle(file: gapi.client.drive.File): FileInfo {
     const fileInfo: FileInfo = new FileInfo();
     fileInfo.id = file.id;

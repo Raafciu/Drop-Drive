@@ -4,6 +4,7 @@ import {MatTableDataSource} from '@angular/material';
 import {FileInfo} from '../../model/fileInfo';
 import {FileService} from '../../service/file.service';
 import {User} from '../../model/user';
+import {NotificationService} from '../../service/notification.service';
 
 const ROOT_FOLDER = 'root';
 
@@ -19,15 +20,16 @@ export class GoogleDriveApiComponent implements OnInit {
   files: FileInfo[] = [];
   loggedUser: User;
 
-  constructor(private gapiService: GapiService,
-              private fileService: FileService,
-              private ngZone: NgZone) {
+  constructor(private _gapiService: GapiService,
+              private _fileService: FileService,
+              private ngZone: NgZone,
+              private _notificationService: NotificationService) {
   }
 
   ngOnInit(): void {
 
     if (this.isSignedIn()) {
-      const user: User = this.gapiService.getUser();
+      const user: User = this._gapiService.getUser();
       if (user) {
         this.loggedUser = user;
       }
@@ -36,7 +38,7 @@ export class GoogleDriveApiComponent implements OnInit {
   }
 
   signIn() {
-    this.gapiService.signIn()
+    this._gapiService.signIn()
       .then(() => {
         if (this.isSignedIn()) {
           console.log('Zalogowany');
@@ -46,16 +48,16 @@ export class GoogleDriveApiComponent implements OnInit {
   }
 
   signOut() {
-    this.gapiService.signOut();
+    this._gapiService.signOut();
     window.location.reload();
   }
 
   isSignedIn(): boolean {
-    return this.gapiService.isSignedIn;
+    return this._gapiService.isSignedIn;
   }
 
   refreshFilesForFolder(folderId: string) {
-    this.fileService.getFiles(folderId).then(response => {
+    this._fileService.getFiles(folderId).then(response => {
       this.ngZone.run(() => {
         this.files = response;
         console.log(this.files);
@@ -66,5 +68,19 @@ export class GoogleDriveApiComponent implements OnInit {
 
   isFolder(fileInfo: FileInfo): boolean {
     return fileInfo.IsFolder;
+  }
+
+  deleteFile(file: FileInfo) {
+    this.files.splice(this.files.indexOf(file), 1);
+    this._fileService.deleteFile(file.id).then(() => {
+      this.ngZone.run(() => {
+        this.dataSource.data = this.files;
+        this._notificationService.success('Usunięto');
+      });
+    });
+  }
+
+  downloadFile(file: FileInfo) {
+    //TODO zrobić w przyszłości
   }
 }
