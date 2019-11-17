@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {UserService} from '../../user.service';
-import {User} from '../../../model/user';
+import {UserService} from './user.service';
+import {User} from '../model/user';
 
 //TODO parametry do zmiany
 const CLIENT_ID = '733757192795-19hiob2sv7vb1e91qg1hb776nu6n30ve.apps.googleusercontent.com';
@@ -9,7 +9,7 @@ const DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/drive/v3/r
 const SCOPES = 'https://www.googleapis.com/auth/drive';
 
 @Injectable()
-export class GapiSession {
+export class GapiService {
   googleAuth: gapi.auth2.GoogleAuth;
 
   constructor(private userService: UserService) {
@@ -39,8 +39,12 @@ export class GapiSession {
     });
   }
 
-  getAllUsers(): Set<User> {
-    return this.userService.getAll();
+  signOut(): void {
+    this.googleAuth.signOut();
+  }
+
+  getUser(): User {
+    return this.userService.getUser();
   }
 
   get isSignedIn(): boolean {
