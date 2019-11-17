@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {FileInfo} from '../model/fileInfo';
-import {DateFormatterUtil} from '../utils/dateFormatterUtil';
+import {FormatterUtil} from '../utils/formatterUtil';
 
 @Injectable()
 export class FileService {
@@ -30,9 +30,9 @@ export class FileService {
     const fileInfo: FileInfo = new FileInfo();
     fileInfo.id = file.id;
     fileInfo.mimeType = file.mimeType;
-    fileInfo.modifiedTime = DateFormatterUtil.dateFormat(file.modifiedTime);
+    fileInfo.modifiedTime = FormatterUtil.dateFormat(file.modifiedTime);
     fileInfo.name = file.name;
-    fileInfo.size = file.size ? file.size + ' B' : '-';
+    fileInfo.size = FormatterUtil.sizeFormat(file.size);
     return fileInfo;
   }
 }
