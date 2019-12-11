@@ -7,6 +7,7 @@ export class FileInfo {
   mimeType: string;
   modifiedTime: string;
   name: string;
+  webContentLink: string;
   // progress: number;
   size: string;
 

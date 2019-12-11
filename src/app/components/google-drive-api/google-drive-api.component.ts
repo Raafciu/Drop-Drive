@@ -5,6 +5,7 @@ import {FileInfo} from '../../model/fileInfo';
 import {FileService} from '../../service/file.service';
 import {User} from '../../model/user';
 import {NotificationService} from '../../service/notification.service';
+import * as FileSaver from 'file-saver';
 
 const ROOT_FOLDER = 'root';
 
@@ -81,6 +82,12 @@ export class GoogleDriveApiComponent implements OnInit {
   }
 
   downloadFile(file: FileInfo) {
-    //TODO zrobić w przyszłości
+    //TODO nie działa dalej.
+    this._fileService.getBlobFile(file).then(response => {
+      console.log(response);
+      let blob: Blob = new Blob([response.body], {type: 'mimeType'});
+      console.log(blob);
+      FileSaver.saveAs(blob, file.name);
+    });
   }
 }

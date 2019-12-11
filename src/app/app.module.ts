@@ -15,6 +15,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {UserService} from './service/user.service';
 import {FileService} from './service/file.service';
 import {NotificationService} from './service/notification.service';
+import {HttpClientModule} from '@angular/common/http';
 
 export function initGapi(gapiService: GapiService) {
   return () => gapiService.initClient();
@@ -34,7 +35,8 @@ export function initGapi(gapiService: GapiService) {
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    HttpClientModule
   ],
   providers: [
     {provide: APP_INITIALIZER, useFactory: initGapi, deps: [GapiService], multi: true},
