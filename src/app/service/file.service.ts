@@ -15,7 +15,7 @@ export class FileService {
     }).then((response) => {
       const files: FileInfo[] = [];
       response.result.files.forEach(file => {
-        console.log(file);
+        // console.log(file);
         files.push(FileService.createFileFromGoogle(file));
       });
       return files;

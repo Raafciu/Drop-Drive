@@ -12,14 +12,14 @@ export class FileInfo {
   size: string;
 
   public get icon(): string {
-    if (this.IsFolder) {
+    if (this.isFolder) {
       return 'folder';
     } else {
       return 'file';
     }
   }
 
-  public get IsFolder(): boolean {
+  public get isFolder(): boolean {
     return this.mimeType === MIME_TYPE_FOLDER;
   }
 }

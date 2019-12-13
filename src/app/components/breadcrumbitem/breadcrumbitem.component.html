@@ -1,0 +1,12 @@
+<span *ngIf="!item.showOption">
+  <button mat-button (click)="select()">{{item.name}}</button>
+</span>
+<span *ngIf="item.showOption">
+  <button mat-button [mat-menu-trigger-for]="menu">{{item.name}}</button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="createNewFolder()">
+      <mat-icon class="icon">create_new_folder</mat-icon>
+      New folder
+    </button>
+  </mat-menu>
+</span>
