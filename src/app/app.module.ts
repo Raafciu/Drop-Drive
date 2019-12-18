@@ -19,6 +19,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {BreadcrumbComponent} from './components/breadcrumb/breadcrumb.component';
 import {BreadcrumbitemComponent} from './components/breadcrumbitem/breadcrumbitem.component';
 import {BreadcrumbService} from './service/breadcrumb.service';
+import {DialogInputComponent} from './components/dialog-input/dialog-input.component';
+import {FormsModule} from '@angular/forms';
 
 export function initGapi(gapiService: GapiService) {
   return () => gapiService.initClient();
@@ -33,7 +35,8 @@ export function initGapi(gapiService: GapiService) {
     DropBoxApiComponent,
     HomeComponent,
     BreadcrumbComponent,
-    BreadcrumbitemComponent
+    BreadcrumbitemComponent,
+    DialogInputComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,8 @@ export function initGapi(gapiService: GapiService) {
     BrowserAnimationsModule,
     MaterialModule,
     FlexLayoutModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     {provide: APP_INITIALIZER, useFactory: initGapi, deps: [GapiService], multi: true},
@@ -51,7 +55,10 @@ export function initGapi(gapiService: GapiService) {
     NotificationService,
     BreadcrumbService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    DialogInputComponent
+  ]
 })
 export class AppModule {
 }

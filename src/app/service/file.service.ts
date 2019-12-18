@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {FileInfo} from '../model/fileInfo';
+import {FileInfo, MIME_TYPE_FOLDER} from '../model/fileInfo';
 import {FormatterUtil} from '../utils/formatterUtil';
 import {API_KEY} from './gapi.service';
 
@@ -46,6 +46,20 @@ export class FileService {
       alt: 'media',
       oauth_token: gapi.client.getToken().access_token,
       key: API_KEY
+    });
+  }
+
+  createFile(parentId: string, folderName: string) {
+    let folder = {
+      name: folderName,
+      mimeType: MIME_TYPE_FOLDER,
+      parents: [parentId]
+    };
+    return gapi.client.drive.files.create({
+      resource: folder,
+      fields: 'id, name, mimeType, modifiedTime, size'
+    }).then(res => {
+      return FileService.createFileFromGoogle(res.result);
     });
   }
 }

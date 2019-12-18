@@ -1,6 +1,6 @@
 import {Component, NgZone, OnInit} from '@angular/core';
 import {GapiService} from '../../service/gapi.service';
-import {MatTableDataSource} from '@angular/material';
+import {MatDialog, MatTableDataSource} from '@angular/material';
 import {FileInfo, MIME_TYPE_FOLDER} from '../../model/fileInfo';
 import {FileService} from '../../service/file.service';
 import {User} from '../../model/user';
@@ -9,6 +9,8 @@ import * as FileSaver from 'file-saver';
 import {BreadCrumbItem} from '../../model/breadCrumbItem';
 import {BreadcrumbService} from '../../service/breadcrumb.service';
 import {BreadCrumbItemOption, OPTION_NEW_FOLDER} from '../../model/breadCrumbItemOption';
+import {DialogInputData} from '../../model/dialogInputData';
+import {DialogInputComponent} from '../dialog-input/dialog-input.component';
 
 const ROOT_FOLDER = 'root';
 
@@ -29,7 +31,8 @@ export class GoogleDriveApiComponent implements OnInit {
               private _fileService: FileService,
               private ngZone: NgZone,
               private _notificationService: NotificationService,
-              private _breadcrumbService: BreadcrumbService) {
+              private _breadcrumbService: BreadcrumbService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -126,6 +129,20 @@ export class GoogleDriveApiComponent implements OnInit {
   }
 
   private createNewFolder() {
-    console.log('CREATE NEW FOLDER');
+    let data: DialogInputData = new DialogInputData();
+    data.inputTitle = 'Tworzenie nowego folderu';
+    const dialogRef = this.dialog.open(DialogInputComponent, {
+      height: '250px',
+      width: '500px',
+      data: data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this._fileService.createFile(this._breadcrumbService.currentItem.id, result).then(() => {
+          this.refreshFilesForFolder(this._breadcrumbService.currentItem.id);
+        });
+      }
+    });
   }
 }
