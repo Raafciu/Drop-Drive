@@ -21,6 +21,7 @@ import {BreadcrumbitemComponent} from './components/breadcrumbitem/breadcrumbite
 import {BreadcrumbService} from './service/breadcrumb.service';
 import {DialogInputComponent} from './components/dialog-input/dialog-input.component';
 import {FormsModule} from '@angular/forms';
+import {UploadFilesComponent} from './components/upload-files/upload-files.component';
 
 export function initGapi(gapiService: GapiService) {
   return () => gapiService.initClient();
@@ -36,7 +37,8 @@ export function initGapi(gapiService: GapiService) {
     HomeComponent,
     BreadcrumbComponent,
     BreadcrumbitemComponent,
-    DialogInputComponent
+    DialogInputComponent,
+    UploadFilesComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +59,8 @@ export function initGapi(gapiService: GapiService) {
   ],
   bootstrap: [AppComponent],
   entryComponents: [
-    DialogInputComponent
+    DialogInputComponent,
+    UploadFilesComponent
   ]
 })
 export class AppModule {

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {BreadCrumbItem} from '../../model/breadCrumbItem';
-import {BreadCrumbItemOption, OPTION_NEW_FOLDER} from '../../model/breadCrumbItemOption';
+import {BreadCrumbItemOption, OPTION_NEW_FOLDER, OPTION_UPLOAD_FILES} from '../../model/breadCrumbItemOption';
 
 @Component({
   selector: 'breadcrumbitem',
@@ -19,10 +19,15 @@ export class BreadcrumbitemComponent {
   onSelectedOption: EventEmitter<BreadCrumbItemOption> = new EventEmitter<BreadCrumbItemOption>();
 
   createNewFolder() {
-    this.onSelectedOption.emit({name: 'New folder', option: OPTION_NEW_FOLDER, date: null});
+    this.onSelectedOption.emit({name: 'New folder', option: OPTION_NEW_FOLDER, data: null});
   }
+
 
   select() {
     this.onSelected.emit(this.item);
+  }
+
+  uploadFiles($event) {
+    this.onSelectedOption.emit({name: 'Upload files', option: OPTION_UPLOAD_FILES, data: $event.target.files});
   }
 }

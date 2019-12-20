@@ -1,6 +1,6 @@
 import {Component, NgZone, OnInit} from '@angular/core';
 import {GapiService} from '../../service/gapi.service';
-import {MatDialog, MatTableDataSource} from '@angular/material';
+import {MatBottomSheet, MatDialog, MatTableDataSource} from '@angular/material';
 import {FileInfo, MIME_TYPE_FOLDER} from '../../model/fileInfo';
 import {FileService} from '../../service/file.service';
 import {User} from '../../model/user';
@@ -11,6 +11,7 @@ import {BreadcrumbService} from '../../service/breadcrumb.service';
 import {BreadCrumbItemOption, OPTION_NEW_FOLDER} from '../../model/breadCrumbItemOption';
 import {DialogInputData} from '../../model/dialogInputData';
 import {DialogInputComponent} from '../dialog-input/dialog-input.component';
+import {UploadFilesComponent} from '../upload-files/upload-files.component';
 
 const ROOT_FOLDER = 'root';
 
@@ -32,7 +33,8 @@ export class GoogleDriveApiComponent implements OnInit {
               private ngZone: NgZone,
               private _notificationService: NotificationService,
               private _breadcrumbService: BreadcrumbService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private bottomSheet: MatBottomSheet) {
   }
 
   ngOnInit(): void {
@@ -54,6 +56,7 @@ export class GoogleDriveApiComponent implements OnInit {
         if (this.isSignedIn()) {
           console.log('Zalogowany');
           this.refreshFilesForFolder(ROOT_FOLDER);
+          window.location.reload();
         }
       });
   }
@@ -125,6 +128,8 @@ export class GoogleDriveApiComponent implements OnInit {
   onSelectedOptionChanged($event: BreadCrumbItemOption) {
     if ($event.option === OPTION_NEW_FOLDER) {
       this.createNewFolder();
+    } else {
+      this.bottomSheet.open(UploadFilesComponent, {data: $event.data});
     }
   }
 

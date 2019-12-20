@@ -1,11 +1,14 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {FileInfo, MIME_TYPE_FOLDER} from '../model/fileInfo';
 import {FormatterUtil} from '../utils/formatterUtil';
 import {API_KEY} from './gapi.service';
 
+declare var UploaderForGoogleDrive;
+
 @Injectable()
 export class FileService {
 
+  public uploadFinished: EventEmitter<any> = new EventEmitter();
 
   getFiles(folderId: string) {
     return gapi.client.drive.files.list({
@@ -61,5 +64,30 @@ export class FileService {
     }).then(res => {
       return FileService.createFileFromGoogle(res.result);
     });
+  }
+
+  importFile(parentId: string, file: FileInfo, onError: any, onComplete: any, onProgress: any) {
+    let contentType = file.blob.type || 'application/octet-stream';
+
+    let metadata = {
+      name: file.blob.name,
+      mimeType: contentType,
+      parents: [parentId]
+    };
+
+    let uploader = new UploaderForGoogleDrive({
+      file: file.blob,
+      token: gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token,
+      metadata: metadata,
+      onError: onError,
+      onComplete: onComplete,
+      onProgress: onProgress,
+      params: {
+        convert: false,
+        ocr: false
+      }
+    });
+
+    uploader.upload();
   }
 }

@@ -2,13 +2,13 @@ export const MIME_TYPE_FOLDER = 'application/vnd.google-apps.folder';
 
 export class FileInfo {
 
-  // blob: File;
+  blob: File;
   id: string;
   mimeType: string;
   modifiedTime: string;
   name: string;
   webContentLink: string;
-  // progress: number;
+  progress: number;
   size: string;
 
   public get icon(): string {
