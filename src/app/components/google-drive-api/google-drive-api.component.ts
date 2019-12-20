@@ -130,6 +130,9 @@ export class GoogleDriveApiComponent implements OnInit {
       this.createNewFolder();
     } else {
       this.bottomSheet.open(UploadFilesComponent, {data: $event.data});
+      this.bottomSheet._openedBottomSheetRef.afterDismissed().subscribe(() => {
+        this.refreshFilesForFolder(this._breadcrumbService.currentItem.id);
+      });
     }
   }
 
