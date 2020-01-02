@@ -7,5 +7,6 @@ export class Report {
   description: string;
   status: ReportStatusEnum;
   prority: number;
+  expirationDateTime: Date;
   notes: Set<Note>;
 }
