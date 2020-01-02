@@ -1,1 +1,14 @@
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+html {
+  background-color: #faf3f5;
+}
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+}
