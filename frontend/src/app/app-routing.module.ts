@@ -5,6 +5,7 @@ import {DropBoxApiComponent} from './components/drop-box/drop-box-api.component'
 import {CompanyComponent} from './components/company/company.component';
 import {HomeComponent} from './components/home/home.component';
 import {AppRegisterFormComponent} from './components/app-register-form/app-register-form.component';
+import {AddReportComponent} from './components/add-report/add-report.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'drop-box', component: DropBoxApiComponent},
   {path: 'company', component: CompanyComponent},
   {path: 'app-register-form', component: AppRegisterFormComponent},
+  {path: 'add-report', component: AddReportComponent},
 ];
 
 @NgModule({

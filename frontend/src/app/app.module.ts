@@ -27,6 +27,8 @@ import {CompanyService} from './service/company-service/company.service';
 import {AppLoginFormComponent} from './components/app-login-form/app-login-form.component';
 import {CompanyAppService} from './service/company-service/companyApp.service';
 import {AppRegisterFormComponent} from './components/app-register-form/app-register-form.component';
+import {AddReportComponent} from './components/add-report/add-report.component';
+import {ReportService} from './service/company-service/report.service';
 
 export function initGapi(gapiService: GapiService) {
   return () => gapiService.initClient();
@@ -45,7 +47,8 @@ export function initGapi(gapiService: GapiService) {
     DialogInputComponent,
     UploadFilesComponent,
     AppLoginFormComponent,
-    AppRegisterFormComponent
+    AppRegisterFormComponent,
+    AddReportComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +69,8 @@ export function initGapi(gapiService: GapiService) {
     BreadcrumbService,
     DropboxService,
     CompanyService,
-    CompanyAppService
+    CompanyAppService,
+    ReportService
   ],
   bootstrap: [AppComponent],
   entryComponents: [

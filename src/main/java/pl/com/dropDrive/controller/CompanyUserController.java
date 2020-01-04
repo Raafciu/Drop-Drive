@@ -1,5 +1,6 @@
 package pl.com.dropDrive.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.com.dropDrive.model.CompanyUser;
 import pl.com.dropDrive.repository.CompanyUserRepository;
@@ -12,6 +13,7 @@ public class CompanyUserController {
 
     private final CompanyUserRepository companyUserRepository;
 
+    @Autowired
     public CompanyUserController(CompanyUserRepository companyUserRepository) {
         this.companyUserRepository = companyUserRepository;
     }

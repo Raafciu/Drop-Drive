@@ -5,8 +5,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.*;
 import org.springframework.jmx.support.RegistrationPolicy;
+import pl.com.dropDrive.enums.ReportStatusEnum;
 import pl.com.dropDrive.model.CompanyUser;
+import pl.com.dropDrive.model.Report;
 import pl.com.dropDrive.repository.CompanyUserRepository;
+import pl.com.dropDrive.repository.ReportRepository;
+
+import java.util.Date;
+import java.util.stream.Stream;
 
 @SpringBootApplication
 @PropertySources({
@@ -26,7 +32,7 @@ public class DropDriveApplication {
     }
 
     @Bean
-    CommandLineRunner init(CompanyUserRepository companyUserRepository) {
+    CommandLineRunner init(CompanyUserRepository companyUserRepository, ReportRepository reportRepository) {
         return args -> {
             CompanyUser companyUser = new CompanyUser();
             companyUser.setUsername("rg1");
@@ -45,6 +51,19 @@ public class DropDriveApplication {
             companyUser2.setCompanyName("SoftNet");
             companyUser2.setUserType("PRACOWNIK");
             companyUserRepository.save(companyUser2);
+
+            Stream.of("Zgłosznenie nr1", "Zgłosznenie nr2", "Zgłosznenie nr3", "Zgłosznenie nr4", "Zgłosznenie nr5").forEach(name -> {
+                Report report = new Report();
+                report.setName(name);
+                report.setShortDescription("SZYBKO ASAP");
+                report.setDescription("Panie psuje sie strona nic nie działa, proszę to jak najszybciej w miare możliwości naprawić");
+                report.setExpirationDateTime(new Date());
+                report.setPrority(8);
+                report.setStatus(ReportStatusEnum.OTWARTE);
+                report.setClientReported("rg1");
+                reportRepository.save(report);
+            });
+
         };
     }
 }
