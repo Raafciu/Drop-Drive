@@ -36,7 +36,7 @@ public class ReportController {
         reportRepository.delete(report);
     }
 
-    @PostMapping("/reportsByClientReported")
+    @GetMapping("/reportsByClientReported")
     public List<Report> reportsByClientReported(@RequestParam String clientReported) {
         return reportRepository.reportsByClientReported(clientReported);
     }

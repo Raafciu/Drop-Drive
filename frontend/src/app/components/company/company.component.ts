@@ -4,7 +4,8 @@ import {CompanyAppService} from '../../service/company-service/companyApp.servic
 import {CompanyUser} from '../../model/company/companyUser';
 import {Report} from '../../model/company/report';
 import {ReportService} from '../../service/company-service/report.service';
-import {MatTableDataSource} from '@angular/material';
+import {MatDialog, MatTableDataSource} from '@angular/material';
+import {DialogReportDetailsComponent} from '../dialog-report-details/dialog-report-details.component';
 
 @Component({
   selector: 'company',
@@ -20,7 +21,8 @@ export class CompanyComponent implements OnInit {
 
   constructor(private _companyService: CompanyService,
               private _companyAppService: CompanyAppService,
-              private _reportService: ReportService) {
+              private _reportService: ReportService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -49,10 +51,26 @@ export class CompanyComponent implements OnInit {
   }
 
   refreshReports() {
-    this._reportService.findAll().subscribe(reports => {
-      this.reports = reports;
-      console.log(this.reports);
-      this.dataSource = new MatTableDataSource(this.reports);
+    if (!this.isClient()) {
+      this._reportService.findAll().subscribe(reports => {
+        this.reports = reports;
+        console.log(this.reports);
+        this.dataSource = new MatTableDataSource(this.reports);
+      });
+    } else {
+      this._reportService.findByClientReported(this.loggedCompanyUser.username).subscribe(reports => {
+        this.reports = reports;
+        console.log(this.reports);
+        this.dataSource = new MatTableDataSource(this.reports);
+      });
+    }
+  }
+
+  showDetails(report: Report) {
+    const dialogRef = this.dialog.open(DialogReportDetailsComponent, {
+      height: '500px',
+      minWidth: '60%',
+      data: report
     });
   }
 }

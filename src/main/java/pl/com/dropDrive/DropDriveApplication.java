@@ -64,6 +64,15 @@ public class DropDriveApplication {
                 reportRepository.save(report);
             });
 
+            Report report = new Report();
+            report.setName("report5");
+            report.setShortDescription("SZYBKO ASAP");
+            report.setDescription("Panie psuje sie strona nic nie działa, proszę to jak najszybciej w miare możliwości naprawić");
+            report.setExpirationDateTime(new Date());
+            report.setPrority(8);
+            report.setStatus(ReportStatusEnum.OTWARTE);
+            report.setClientReported("Andrzej");
+            reportRepository.save(report);
         };
     }
 }

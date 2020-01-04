@@ -51,7 +51,7 @@
       <ng-container matColumnDef="details">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let item">
-          <mat-icon class="visible-cursor">info</mat-icon>
+          <mat-icon class="visible-cursor" (click)="showDetails(item)">info</mat-icon>
         </td>
       </ng-container>
 
