@@ -4,6 +4,7 @@ import {GoogleDriveApiComponent} from './components/google-drive-api/google-driv
 import {DropBoxApiComponent} from './components/drop-box/drop-box-api.component';
 import {CompanyComponent} from './components/company/company.component';
 import {HomeComponent} from './components/home/home.component';
+import {AppRegisterFormComponent} from './components/app-register-form/app-register-form.component';
 
 
 const routes: Routes = [
@@ -11,6 +12,7 @@ const routes: Routes = [
   {path: 'google-drive', component: GoogleDriveApiComponent},
   {path: 'drop-box', component: DropBoxApiComponent},
   {path: 'company', component: CompanyComponent},
+  {path: 'app-register-form', component: AppRegisterFormComponent},
 ];
 
 @NgModule({

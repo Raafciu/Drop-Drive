@@ -20,9 +20,13 @@ import {BreadcrumbComponent} from './components/breadcrumb/breadcrumb.component'
 import {BreadcrumbitemComponent} from './components/breadcrumbitem/breadcrumbitem.component';
 import {BreadcrumbService} from './service/breadcrumb.service';
 import {DialogInputComponent} from './components/dialog-input/dialog-input.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UploadFilesComponent} from './components/upload-files/upload-files.component';
 import {DropboxService} from './service/drop-box-service/dropbox.service';
+import {CompanyService} from './service/company-service/company.service';
+import {AppLoginFormComponent} from './components/app-login-form/app-login-form.component';
+import {CompanyAppService} from './service/company-service/companyApp.service';
+import {AppRegisterFormComponent} from './components/app-register-form/app-register-form.component';
 
 export function initGapi(gapiService: GapiService) {
   return () => gapiService.initClient();
@@ -39,7 +43,9 @@ export function initGapi(gapiService: GapiService) {
     BreadcrumbComponent,
     BreadcrumbitemComponent,
     DialogInputComponent,
-    UploadFilesComponent
+    UploadFilesComponent,
+    AppLoginFormComponent,
+    AppRegisterFormComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +54,8 @@ export function initGapi(gapiService: GapiService) {
     MaterialModule,
     FlexLayoutModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     {provide: APP_INITIALIZER, useFactory: initGapi, deps: [GapiService], multi: true},
@@ -57,7 +64,9 @@ export function initGapi(gapiService: GapiService) {
     FileService,
     NotificationService,
     BreadcrumbService,
-    DropboxService
+    DropboxService,
+    CompanyService,
+    CompanyAppService
   ],
   bootstrap: [AppComponent],
   entryComponents: [
