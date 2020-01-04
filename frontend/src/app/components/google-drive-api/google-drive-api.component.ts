@@ -1,8 +1,8 @@
 import {Component, NgZone, OnInit} from '@angular/core';
-import {GapiService} from '../../service/gapi.service';
+import {GapiService} from '../../service/google-drive-service/gapi.service';
 import {MatBottomSheet, MatDialog, MatTableDataSource} from '@angular/material';
 import {FileInfo, MIME_TYPE_FOLDER} from '../../model/fileInfo';
-import {FileService} from '../../service/file.service';
+import {FileService} from '../../service/google-drive-service/file.service';
 import {User} from '../../model/user';
 import {NotificationService} from '../../service/notification.service';
 import * as FileSaver from 'file-saver';

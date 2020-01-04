@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
 import {FileInfo} from '../../model/fileInfo';
 import {MAT_BOTTOM_SHEET_DATA} from '@angular/material';
-import {FileService} from '../../service/file.service';
+import {FileService} from '../../service/google-drive-service/file.service';
 import {BreadcrumbService} from '../../service/breadcrumb.service';
 
 @Component({

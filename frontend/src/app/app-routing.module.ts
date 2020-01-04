@@ -10,7 +10,7 @@ const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'google-drive', component: GoogleDriveApiComponent},
   {path: 'drop-box', component: DropBoxApiComponent},
-  {path: 'company', component: CompanyComponent}
+  {path: 'company', component: CompanyComponent},
 ];
 
 @NgModule({

@@ -1,6 +1,6 @@
 import {EventEmitter, Injectable} from '@angular/core';
-import {FileInfo, MIME_TYPE_FOLDER} from '../model/fileInfo';
-import {FormatterUtil} from '../utils/formatterUtil';
+import {FileInfo, MIME_TYPE_FOLDER} from '../../model/fileInfo';
+import {FormatterUtil} from '../../utils/formatterUtil';
 import {API_KEY} from './gapi.service';
 
 declare var UploaderForGoogleDrive;
