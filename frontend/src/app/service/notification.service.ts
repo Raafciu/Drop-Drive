@@ -11,21 +11,24 @@ export class NotificationService {
 
   default(message: string) {
     this.snackBar.open(message, null, {
-      duration: this.duration
+      duration: this.duration,
+      horizontalPosition: 'center'
     });
   }
 
   success(message: string) {
     this.snackBar.open(message, null, {
       duration: this.duration,
-      panelClass: ['notification-success']
+      panelClass: ['notification-success'],
+      horizontalPosition: 'center'
     });
   }
 
   error(message: string) {
     this.snackBar.open(message, null, {
       duration: this.duration,
-      panelClass: ['notification-error']
+      panelClass: ['notification-error'],
+      horizontalPosition: 'center'
     });
   }
 }

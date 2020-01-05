@@ -1,5 +1,7 @@
 export class Note {
   id: string;
   description: string;
-  date: Date;
+  date: string;
+  owner: string;
+  reportId: string;
 }

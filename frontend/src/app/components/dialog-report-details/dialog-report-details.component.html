@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Szczegóły zgłoszenia</h1>
+<div mat-dialog-content class="content">
+  <p>Nazwa zgłoszenia: {{report.name}}</p>
+  <p>Skrócony opis: {{report.shortDescription}}</p>
+  <p>Opis: {{report.description}}</p>
+  <p>Aktualny status: {{report.status}}</p>
+  <p>Priorytet: {{report.prority}}</p>
+  <p>Data realizacji: {{report.expirationDateTime}}</p>
+</div>
+<div class="button-location" *ngIf="!isClient()">
+  <button mat-raised-button style="margin-right: 3em" [disabled]="report.status === open" (click)="changeStatus(open)">Otwórz zgłoszenie</button>
+  <button mat-raised-button style="margin-right: 3em" [disabled]="report.status === inProgress" (click)="changeStatus(inProgress)">Zrealizuj zgłoszenie</button>
+  <button mat-raised-button style="margin-right: 3em" [disabled]="report.status === closed" (click)="changeStatus(closed)">Zamknij zgłoszenie</button>
+</div>
+<h1 mat-dialog-title>Notatki do zgłoszenia</h1>
+
+<add-note [reportId]="report.id" [loggedUser]="loggedUser"></add-note>
+
+<div mat-dialog-actions align="end" class="center">
+  <button mat-raised-button (click)="back()">Powrót</button>
+</div>

@@ -1,3 +1,61 @@
-<p>
-  Company
-</p>
+<div class="container">
+  <mat-toolbar class="toolbar">
+    <mat-toolbar-row>
+<!--      <div *ngIf="!isSignedIn()">-->
+<!--        <button mat-raised-button [routerLink]="['/app-register-form']">Zarejestruj się</button>-->
+<!--      </div>-->
+      <div *ngIf="isSignedIn()">
+        <mat-label class="user-label">{{loggedCompanyUser.username}}</mat-label>
+        <span class="vertical-separator" *ngIf="isClient()"></span>
+        <button mat-button [routerLink]="['/add-report']" *ngIf="isClient()">Dodaj zgłoszenie</button>
+        <span class="vertical-separator"></span>
+        <button mat-button (click)="signOut()">Wyloguj się</button>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <app-login-form *ngIf="!isSignedIn()"></app-login-form>
+
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="isSignedIn()">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Nazwa</th>
+        <td mat-cell *matCellDef="let item"> {{item.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="shortDescription">
+        <th mat-header-cell *matHeaderCellDef> Skrócony opis</th>
+        <td mat-cell *matCellDef="let item"> {{item.shortDescription}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Status</th>
+        <td mat-cell *matCellDef="let item"> {{item.status}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="prority">
+        <th mat-header-cell *matHeaderCellDef> Priorytet</th>
+        <td mat-cell *matCellDef="let item"> {{item.prority}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="expirationDateTime">
+        <th mat-header-cell *matHeaderCellDef> Czas realizacji</th>
+        <td mat-cell *matCellDef="let item"> {{item.expirationDateTime}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="clientReported">
+        <th mat-header-cell *matHeaderCellDef> Zgłaszający</th>
+        <td mat-cell *matCellDef="let item"> {{item.clientReported}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="details">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let item">
+          <mat-icon class="visible-cursor" (click)="showDetails(item)">info</mat-icon>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
