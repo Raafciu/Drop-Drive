@@ -1,0 +1,25 @@
+<div *ngFor="let note of notes">
+
+  {{loggedUser.username}}
+</div>
+
+<p class="p-style">Brak notatek do wyświetlenia</p>
+
+<mat-card class="shadow-mard-card">
+<!--  <mat-card-title>Dodaj notatkę</mat-card-title>-->
+  <mat-card-content>
+    <form [formGroup]="form" class="my-form">
+      <p>
+        <mat-form-field class="my-form">
+          <label>
+            <textarea matInput type="text" placeholder="Dodaj nową notatkę" formControlName="descriptionFC"
+                      class="note-text-area"></textarea>
+          </label>
+        </mat-form-field>
+      </p>
+      <div class="button">
+        <button type="submit" mat-raised-button (click)="addNote()">Dodaj</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

@@ -6,6 +6,7 @@ import {Report} from '../../model/company/report';
 import {ReportService} from '../../service/company-service/report.service';
 import {MatDialog, MatTableDataSource} from '@angular/material';
 import {DialogReportDetailsComponent} from '../dialog-report-details/dialog-report-details.component';
+import {DialogReportDetailsInputData} from '../../model/dialogReportDetailsInputData';
 
 @Component({
   selector: 'company',
@@ -67,10 +68,16 @@ export class CompanyComponent implements OnInit {
   }
 
   showDetails(report: Report) {
+    let inputData: DialogReportDetailsInputData = new DialogReportDetailsInputData();
+    inputData.loggedUser = this.loggedCompanyUser;
+    console.log(this.loggedCompanyUser);
+    inputData.report = report;
     const dialogRef = this.dialog.open(DialogReportDetailsComponent, {
       height: '500px',
       minWidth: '60%',
-      data: report
+      data: inputData,
+      disableClose: true,
+      autoFocus: false
     });
   }
 }
