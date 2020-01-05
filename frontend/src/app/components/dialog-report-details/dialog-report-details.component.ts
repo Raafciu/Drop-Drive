@@ -9,6 +9,7 @@ import {NotificationService} from '../../service/notification.service';
 import {Note} from '../../model/company/note';
 import {NoteService} from '../../service/company-service/note.service';
 import * as moment from 'moment';
+import {UserTypeEnum} from '../../enums/userTypeEnum';
 
 @Component({
   selector: 'dialog-report-details',
@@ -39,8 +40,7 @@ export class DialogReportDetailsComponent {
   }
 
   isClient(): boolean {
-    return false;
-    // return this.loggedUser.userType === UserTypeEnum.KLIENT;
+    return this.loggedUser.userType === UserTypeEnum.KLIENT;
   }
 
   changeStatus(status: ReportStatusEnum) {

@@ -1,9 +1,9 @@
 <div class="container">
   <mat-toolbar class="toolbar">
     <mat-toolbar-row>
-      <div *ngIf="!isSignedIn()">
-        <button mat-raised-button [routerLink]="['/app-register-form']">Zarejestruj się</button>
-      </div>
+<!--      <div *ngIf="!isSignedIn()">-->
+<!--        <button mat-raised-button [routerLink]="['/app-register-form']">Zarejestruj się</button>-->
+<!--      </div>-->
       <div *ngIf="isSignedIn()">
         <mat-label class="user-label">{{loggedCompanyUser.username}}</mat-label>
         <span class="vertical-separator" *ngIf="isClient()"></span>

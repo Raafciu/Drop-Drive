@@ -7,6 +7,7 @@ import {ReportService} from '../../service/company-service/report.service';
 import {MatDialog, MatTableDataSource} from '@angular/material';
 import {DialogReportDetailsComponent} from '../dialog-report-details/dialog-report-details.component';
 import {DialogReportDetailsInputData} from '../../model/dialogReportDetailsInputData';
+import {UserTypeEnum} from '../../enums/userTypeEnum';
 
 @Component({
   selector: 'company',
@@ -46,9 +47,7 @@ export class CompanyComponent implements OnInit {
   }
 
   isClient() {
-    //TODO potem do zmiany
-    return false;
-    // return this.loggedCompanyUser.userType === UserTypeEnum.KLIENT;
+    return this.loggedCompanyUser.userType === UserTypeEnum.KLIENT;
   }
 
   refreshReports() {

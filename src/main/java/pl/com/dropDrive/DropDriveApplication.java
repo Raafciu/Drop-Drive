@@ -48,6 +48,7 @@ public class DropDriveApplication {
             companyUser.setUsername("rg1");
             //haslo asdasd
             companyUser.setPassword("aeae379a6e857728e44164267fdb7a0e27b205d757cc19899586c89dbb221930f1813d02ff93a661859bc17065eac4d6edf3c38a034e6283a84754d52917e5b0");
+            companyUser.setUserType("PRACOWNIK");
             companyUserRepository.save(companyUser);
 
             CompanyUser companyUser2 = new CompanyUser();
@@ -59,7 +60,7 @@ public class DropDriveApplication {
             companyUser2.setEmail("adam.malysz@gmail.com");
             companyUser2.setPhone("123123123");
             companyUser2.setCompanyName("SoftNet");
-            companyUser2.setUserType("PRACOWNIK");
+            companyUser2.setUserType("KLIENT");
             companyUserRepository.save(companyUser2);
 
             Note note = new Note();

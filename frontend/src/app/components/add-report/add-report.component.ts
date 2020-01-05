@@ -63,7 +63,6 @@ export class AddReportComponent implements OnInit {
       report.prority = this.priorityFC.value;
       report.status = ReportStatusEnum.OTWARTE;
       report.expirationDateTime = moment().format('YYYY/MM/DD HH:mm:ss');
-      report.status = null;
       report.clientReported = this.loggedCompanyUser.username;
 
       this._reportService.save(report).subscribe(() => {

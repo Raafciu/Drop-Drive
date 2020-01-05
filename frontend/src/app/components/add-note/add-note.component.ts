@@ -51,6 +51,7 @@ export class AddNoteComponent implements OnInit {
       this._noteService.save(note).subscribe(() => {
         this._notificationService.success('Dodano notatkę');
         this.getNotesByReportId();
+        this.form.reset();
       }, error => this._notificationService.error('Wystąpił błąd, prosimy spróbować ponownie później'));
     } else {
       this._notificationService.error('Podaj treść notatki');
