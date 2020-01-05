@@ -55,7 +55,7 @@ export class DialogReportDetailsComponent {
     let note: Note = new Note();
     note.reportId = this.report.id;
     note.owner = this.loggedUser.username;
-    note.date = moment().format('YYYY/MM/DD HH:mm:ss');
+    note.date = moment().format('YYYY-MM-DD HH:mm:ss');
     note.description = 'Użytkownik zmienił status na ' + status;
 
     this._noteService.save(note).subscribe(() => {

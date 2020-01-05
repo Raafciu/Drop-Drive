@@ -43,7 +43,7 @@ export class AddNoteComponent implements OnInit {
 
       let note: Note = new Note();
       note.description = this.descriptionFC.value;
-      note.date = moment().format('YYYY/MM/DD HH:mm:ss');
+      note.date = moment().format('YYYY-MM-DD HH:mm:ss');
       note.owner = this.loggedUser.username;
       note.reportId = this.reportId;
       console.log(note);
