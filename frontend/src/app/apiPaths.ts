@@ -9,3 +9,9 @@ export const SAVE_REPORT = '/saveReport';
 export const DELETE_REPORT = '/deleteReport';
 export const REPORTS_BY_CLIENT_REPORTED = '/reportsByClientReported';
 
+export const NOTES = '/notes';
+export const SAVE_NOTE = '/saveNote';
+export const DELETE_NOTE = '/deleteNote';
+export const NOTES_BY_REPORT_ID = '/notesByReportId';
+
+

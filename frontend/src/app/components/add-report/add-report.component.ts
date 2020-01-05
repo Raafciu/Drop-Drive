@@ -6,6 +6,7 @@ import {ReportStatusEnum} from '../../enums/reportStatusEnum';
 import {CompanyUser} from '../../model/company/companyUser';
 import {CompanyAppService} from '../../service/company-service/companyApp.service';
 import {ReportService} from '../../service/company-service/report.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'add-report',
@@ -60,14 +61,14 @@ export class AddReportComponent implements OnInit {
       report.shortDescription = this.shortDescriptonFC.value;
       report.description = this.descriptionFC.value;
       report.prority = this.priorityFC.value;
-      // report.expirationDateTime = this.expirationDateFC.value;
-      // report.status = ReportStatusEnum.OTWARTE;
-      report.expirationDateTime = null;
+      report.status = ReportStatusEnum.OTWARTE;
+      report.expirationDateTime = moment().format('YYYY/MM/DD HH:mm:ss');
       report.status = null;
       report.clientReported = this.loggedCompanyUser.username;
 
-      this._reportService.save(report);
-      this._notificationService.success('Dodano zgłoszenie');
+      this._reportService.save(report).subscribe(() => {
+        this._notificationService.success('Dodano zgłoszenie');
+      }, error => this._notificationService.error('Wystąpił błąd, prosimy spróbować ponownie później'));
     } else {
       this._notificationService.error('Wypełnij wszystkie pola');
     }

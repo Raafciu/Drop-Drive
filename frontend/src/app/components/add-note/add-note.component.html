@@ -1,12 +1,15 @@
-<div *ngFor="let note of notes">
-
-  {{loggedUser.username}}
+<div *ngFor="let note of notes" class="note-style">
+  <pre>
+    Użytownik:  {{note.owner}}
+    Data Dodania:  {{note.date}}
+  </pre>
+  <p>{{note.description}}</p>
 </div>
 
-<p class="p-style">Brak notatek do wyświetlenia</p>
+<p class="p-style" *ngIf="!isNotesExist()">Brak notatek do wyświetlenia</p>
 
-<mat-card class="shadow-mard-card">
-<!--  <mat-card-title>Dodaj notatkę</mat-card-title>-->
+<mat-card class="shadow-mard-card" [class.separator]="isNotesExist()">
+  <!--  <mat-card-title>Dodaj notatkę</mat-card-title>-->
   <mat-card-content>
     <form [formGroup]="form" class="my-form">
       <p>

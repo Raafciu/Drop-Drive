@@ -1,4 +1,3 @@
-import {Note} from './note';
 import {ReportStatusEnum} from '../../enums/reportStatusEnum';
 
 export class Report {
@@ -8,7 +7,6 @@ export class Report {
   description: string;
   status: ReportStatusEnum;
   prority: number;
-  expirationDateTime: Date;
-  notes: Set<Note>;
+  expirationDateTime: string;
   clientReported: string;
 }

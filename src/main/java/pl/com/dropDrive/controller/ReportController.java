@@ -1,6 +1,5 @@
 package pl.com.dropDrive.controller;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.com.dropDrive.model.Report;
@@ -8,9 +7,10 @@ import pl.com.dropDrive.repository.ReportRepository;
 
 import java.util.List;
 
+import static pl.com.dropDrive.DropDriveRestNames.*;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@Slf4j
 public class ReportController {
 
     private final ReportRepository reportRepository;
@@ -20,23 +20,22 @@ public class ReportController {
         this.reportRepository = reportRepository;
     }
 
-    @GetMapping("/reports")
+    @GetMapping(REPORTS)
     public List<Report> getReports() {
         return (List<Report>) reportRepository.findAll();
     }
 
-    @PostMapping("/saveReport")
+    @PostMapping(SAVE_REPORT)
     public void addReport(@RequestBody Report report) {
-        log.info(report.toString());
         reportRepository.save(report);
     }
 
-    @PostMapping("/deleteReport")
-    public void deleteUser(@RequestBody Report report) {
+    @PostMapping(DELETE_REPORT)
+    public void deleteReport(@RequestBody Report report) {
         reportRepository.delete(report);
     }
 
-    @GetMapping("/reportsByClientReported")
+    @GetMapping(REPORTS_BY_CLIENT_REPORTED)
     public List<Report> reportsByClientReported(@RequestParam String clientReported) {
         return reportRepository.reportsByClientReported(clientReported);
     }

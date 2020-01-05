@@ -7,6 +7,8 @@ import pl.com.dropDrive.repository.CompanyUserRepository;
 
 import java.util.List;
 
+import static pl.com.dropDrive.DropDriveRestNames.*;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class CompanyUserController {
@@ -18,17 +20,17 @@ public class CompanyUserController {
         this.companyUserRepository = companyUserRepository;
     }
 
-    @GetMapping("/companyUsers")
+    @GetMapping(COMPANY_USERS)
     public List<CompanyUser> getUsers() {
         return (List<CompanyUser>) companyUserRepository.findAll();
     }
 
-    @PostMapping("/saveCompanyUser")
+    @PostMapping(SAVE_COMPANY_USER)
     public void addUser(@RequestBody CompanyUser companyUser) {
         companyUserRepository.save(companyUser);
     }
 
-    @PostMapping("/deleteCompanyUser")
+    @PostMapping(DELETE_COMPANY_USER)
     public void deleteUser(@RequestBody CompanyUser companyUser) {
         companyUserRepository.delete(companyUser);
     }

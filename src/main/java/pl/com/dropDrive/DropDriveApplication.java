@@ -2,18 +2,26 @@ package pl.com.dropDrive;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.*;
 import org.springframework.jmx.support.RegistrationPolicy;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import pl.com.dropDrive.enums.ReportStatusEnum;
 import pl.com.dropDrive.model.CompanyUser;
+import pl.com.dropDrive.model.Note;
 import pl.com.dropDrive.model.Report;
 import pl.com.dropDrive.repository.CompanyUserRepository;
+import pl.com.dropDrive.repository.NoteRepository;
 import pl.com.dropDrive.repository.ReportRepository;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.stream.Stream;
 
+
+@Configuration
+@EnableAutoConfiguration
 @SpringBootApplication
 @PropertySources({
         @PropertySource(DropDriveApplication.APPLICATION_YML),
@@ -21,6 +29,7 @@ import java.util.stream.Stream;
 })
 @ComponentScan(DropDriveApplication.DEFAULT_PACKAGE)
 @EnableMBeanExport(registration = RegistrationPolicy.IGNORE_EXISTING)
+@EnableTransactionManagement
 public class DropDriveApplication {
 
     static final String APPLICATION_YML = "classpath:application.yml";
@@ -32,7 +41,8 @@ public class DropDriveApplication {
     }
 
     @Bean
-    CommandLineRunner init(CompanyUserRepository companyUserRepository, ReportRepository reportRepository) {
+    CommandLineRunner init(CompanyUserRepository companyUserRepository, ReportRepository reportRepository,
+                           NoteRepository noteRepository) {
         return args -> {
             CompanyUser companyUser = new CompanyUser();
             companyUser.setUsername("rg1");
@@ -52,12 +62,20 @@ public class DropDriveApplication {
             companyUser2.setUserType("PRACOWNIK");
             companyUserRepository.save(companyUser2);
 
+            Note note = new Note();
+            note.setDate(new SimpleDateFormat().format(new Date()));
+            note.setDescription("Ile to jeszcze potrwa ?");
+            note.setOwner("Andrzej");
+
+            note.setReportId("6");
+            noteRepository.save(note);
+
             Stream.of("Zgłosznenie nr1", "Zgłosznenie nr2", "Zgłosznenie nr3", "Zgłosznenie nr4", "Zgłosznenie nr5").forEach(name -> {
                 Report report = new Report();
                 report.setName(name);
                 report.setShortDescription("SZYBKO ASAP");
                 report.setDescription("Panie psuje sie strona nic nie działa, proszę to jak najszybciej w miare możliwości naprawić");
-                report.setExpirationDateTime(new Date());
+                report.setExpirationDateTime(new SimpleDateFormat().format(new Date()));
                 report.setPrority(8);
                 report.setStatus(ReportStatusEnum.OTWARTE);
                 report.setClientReported("rg1");
@@ -68,7 +86,7 @@ public class DropDriveApplication {
             report.setName("report5");
             report.setShortDescription("SZYBKO ASAP");
             report.setDescription("Panie psuje sie strona nic nie działa, proszę to jak najszybciej w miare możliwości naprawić");
-            report.setExpirationDateTime(new Date());
+            report.setExpirationDateTime(new SimpleDateFormat().format(new Date()));
             report.setPrority(8);
             report.setStatus(ReportStatusEnum.OTWARTE);
             report.setClientReported("Andrzej");

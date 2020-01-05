@@ -31,6 +31,7 @@ import {AddReportComponent} from './components/add-report/add-report.component';
 import {ReportService} from './service/company-service/report.service';
 import {DialogReportDetailsComponent} from './components/dialog-report-details/dialog-report-details.component';
 import {AddNoteComponent} from './components/add-note/add-note.component';
+import {NoteService} from './service/company-service/note.service';
 
 export function initGapi(gapiService: GapiService) {
   return () => gapiService.initClient();
@@ -74,7 +75,8 @@ export function initGapi(gapiService: GapiService) {
     DropboxService,
     CompanyService,
     CompanyAppService,
-    ReportService
+    ReportService,
+    NoteService
   ],
   bootstrap: [AppComponent],
   entryComponents: [

@@ -47,7 +47,7 @@ export class CompanyComponent implements OnInit {
 
   isClient() {
     //TODO potem do zmiany
-    return true;
+    return false;
     // return this.loggedCompanyUser.userType === UserTypeEnum.KLIENT;
   }
 
@@ -70,14 +70,17 @@ export class CompanyComponent implements OnInit {
   showDetails(report: Report) {
     let inputData: DialogReportDetailsInputData = new DialogReportDetailsInputData();
     inputData.loggedUser = this.loggedCompanyUser;
-    console.log(this.loggedCompanyUser);
     inputData.report = report;
     const dialogRef = this.dialog.open(DialogReportDetailsComponent, {
-      height: '500px',
+      height: '600px',
       minWidth: '60%',
       data: inputData,
       disableClose: true,
       autoFocus: false
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      // this.refreshReports();
     });
   }
 }

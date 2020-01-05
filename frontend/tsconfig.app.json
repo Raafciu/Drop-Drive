@@ -6,7 +6,8 @@
       "gapi",
       "gapi.auth2",
       "gapi.client.drive"
-    ]
+    ],
+    "allowSyntheticDefaultImports": true
   },
   "files": [
     "src/main.ts",

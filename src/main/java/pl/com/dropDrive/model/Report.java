@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import pl.com.dropDrive.enums.ReportStatusEnum;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Data
@@ -15,7 +14,7 @@ import java.util.Date;
 public class Report {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String name;
@@ -29,11 +28,9 @@ public class Report {
 
     private int prority;
 
-    private Date expirationDateTime;
+    private String expirationDateTime;
 
     private String clientReported;
-
-//    notes: Set<Note>;
 
 
     @Override

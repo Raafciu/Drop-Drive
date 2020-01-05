@@ -6,6 +6,7 @@ import {Report} from '../../model/company/report';
 
 @Injectable()
 export class ReportService {
+
   constructor(private http: HttpClient) {
   }
 
