@@ -4,7 +4,7 @@ import {DropBoxAuth} from '../../model/dropBoxAuth';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Dropbox} from 'dropbox';
-import {UrlMethods} from '../../utils/dropboxUtil';
+import {PREFIX_AFTER_SIGNED, UrlMethods} from '../../utils/dropboxUtil';
 import {DropBoxFileService} from '../../service/drop-box-service/dropBoxFile.service';
 import {MatDialog, MatTableDataSource} from '@angular/material';
 import {FormatterUtil} from '../../utils/formatterUtil';
@@ -112,10 +112,12 @@ export class DropBoxApiComponent implements OnInit, OnDestroy {
 
       if (this.dropboxAuth.isAuth) {
         this._dropBoxService.storeAuth(this.dropboxAuth);
-        this.router.navigate([authUrl]); // Navigate the user  after authorization
+        // handling case, when user has already signed in. In this case we navigate to homepage '/drop-box'
+        authUrl.includes(PREFIX_AFTER_SIGNED) ? this.router.navigate(['/drop-box']) : this.router.navigate([authUrl]);
       }
     } else {
-      this.router.navigate([authUrl]); // Navigate the user after authorization
+      // handling case, when user has already signed in. In this case we navigate to homepage '/drop-box'
+      authUrl.includes(PREFIX_AFTER_SIGNED) ? this.router.navigate(['/drop-box']) : this.router.navigate([authUrl]);
     }
   }
 
@@ -218,6 +220,8 @@ export class DropBoxApiComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscrption.unsubscribe();
-    this.fileStreamSubscription.unsubscribe();
+    if (this.fileStreamSubscription) {
+      this.fileStreamSubscription.unsubscribe();
+    }
   }
 }
