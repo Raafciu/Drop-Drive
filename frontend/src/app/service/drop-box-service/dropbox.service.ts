@@ -30,7 +30,7 @@ export class DropboxService {
   initClient() {
     const urlAuth = 'https://www.dropbox.com/oauth2/authorize?'
       + `client_id=${CLIENT_ID}`
-      // + `&redirect_uri=${REDIRECT_URI}`
+      + `&redirect_uri=${REDIRECT_URI}`
       + `&response_type=${RESPONSE_TYPE}`;
     console.log(urlAuth);
     window.location.href = urlAuth;
@@ -84,12 +84,17 @@ export class DropboxService {
   clear() {
     try {
       if (typeof (Storage) !== 'undefined') {
-        localStorage.clear();
+        localStorage.removeItem(DROPBOX_USERS);
       } else {
         return false;
       }
     } catch (error) {
       return error;
     }
+  }
+
+  isSignedIn(): boolean {
+    const savedCredentials: DropboxAuth = this.getItem(DROPBOX_USERS);
+    return !!savedCredentials;
   }
 }

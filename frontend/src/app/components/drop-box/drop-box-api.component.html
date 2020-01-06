@@ -1,14 +1,14 @@
 <div class="container">
   <mat-toolbar class="toolbar">
     <mat-toolbar-row>
-      <div >
+      <div *ngIf="!isUserSignedIn()">
         <button mat-raised-button (click)="signIn()">Zaloguj się</button>
       </div>
-<!--      <div *ngIf="isSignedIn()">-->
+      <div *ngIf="isUserSignedIn()">
 <!--        <mat-label class="user-label">{{loggedUser.email}}</mat-label>-->
 <!--        <span class="vertical-separator"></span>-->
-<!--        <button mat-button (click)="signOut()">Wyloguj się</button>-->
-<!--      </div>-->
+        <button mat-button (click)="signOut()">Wyloguj się</button>
+      </div>
     </mat-toolbar-row>
   </mat-toolbar>
 

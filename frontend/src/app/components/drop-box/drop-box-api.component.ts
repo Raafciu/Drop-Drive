@@ -24,6 +24,7 @@ export class DropBoxApiComponent implements OnInit, OnDestroy {
 
     if (!this.dropboxAuth.isAuth) {
       const authUrl = this.router.url;
+      console.log(this.router.url);
       const parameters = authUrl.split('#')[1] || '';
       if (parameters.length > 0) {
         const arrParams = parameters.split('&') || [];
@@ -61,10 +62,10 @@ export class DropBoxApiComponent implements OnInit, OnDestroy {
       // Store credentials into Auth-service and into localStorage
       if (this.dropboxAuth.isAuth) {
         this._dropboxService.storeAuth(this.dropboxAuth);
-        this.router.navigate(['']); // Navigate the user to homepage
+        this.router.navigate(['/drop-box']); // Navigate the user  after authorization
       }
     } else {
-      this.router.navigate(['']); // Navigate the user to homepage
+      this.router.navigate(['/drop-box']); // Navigate the user after authorization
     }
   }
 
@@ -74,5 +75,13 @@ export class DropBoxApiComponent implements OnInit, OnDestroy {
 
   signIn() {
     this._dropboxService.initClient();
+  }
+
+  isUserSignedIn(): boolean {
+    return this._dropboxService.isSignedIn();
+  }
+
+  signOut() {
+    this._dropboxService.clearAuth();
   }
 }
