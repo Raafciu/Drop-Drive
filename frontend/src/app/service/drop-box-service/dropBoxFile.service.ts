@@ -46,16 +46,20 @@ export class DropBoxFileService {
     });
   }
 
+  private removePathFromFolderName(filePath: string) {
+    const stringToRemove: string = filePath.substr(0, filePath.lastIndexOf('/'));
+    return filePath.replace(stringToRemove, '');
+  }
+
   createFolder(folderName: string) {
-    let correctFolderName: string = '/' + folderName;
-    this.dropBoxConnection.filesCreateFolderV2({path: correctFolderName, autorename: false}).then(response => {
+    this.dropBoxConnection.filesCreateFolderV2({path: folderName, autorename: false}).then(response => {
       this._notificationService.success('Utworzono folder');
     });
   }
 
   getLoggedUserEmail() {
     console.log(this.dropBoxAuth.accountId);
-    if(this.dropBoxAuth.accountId) {
+    if (this.dropBoxAuth.accountId) {
       this.dropBoxConnection.usersGetAccount({account_id: this.dropBoxAuth.accountId}).then(response => {
         this.dropBoxAuth.email = response.email;
       });

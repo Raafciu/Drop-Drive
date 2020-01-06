@@ -11,7 +11,11 @@ import {AddReportComponent} from './components/add-report/add-report.component';
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'google-drive', component: GoogleDriveApiComponent},
-  {path: 'drop-box', component: DropBoxApiComponent},
+  {path: 'drop-box', component: DropBoxApiComponent, children: [
+      {
+        path: '**', component: DropBoxApiComponent
+      }
+    ]},
   {path: 'company', component: CompanyComponent},
   {path: 'app-register-form', component: AppRegisterFormComponent},
   {path: 'add-report', component: AddReportComponent},

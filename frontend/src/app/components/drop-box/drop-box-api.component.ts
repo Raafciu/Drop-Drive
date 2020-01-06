@@ -53,7 +53,6 @@ export class DropBoxApiComponent implements OnInit, OnDestroy {
     this.getAuthIntoLocalStorage();
 
     if (this.dropboxAuth.isAuth) {
-
       this.dropboxConnection = new Dropbox({accessToken: this.dropboxAuth.accessToken});
       this.updateFiles();
     }
@@ -74,8 +73,8 @@ export class DropBoxApiComponent implements OnInit, OnDestroy {
   }
 
   getAuthIntoLocalStorage() {
+    const authUrl = this.router.url;
     if (!this.dropboxAuth.isAuth) {
-      const authUrl = this.router.url;
       console.log(this.router.url);
       const parameters = authUrl.split('#')[1] || '';
       if (parameters.length > 0) {
@@ -111,13 +110,12 @@ export class DropBoxApiComponent implements OnInit, OnDestroy {
         }
       }
 
-      // Store credentials into Auth-service and into localStorage
       if (this.dropboxAuth.isAuth) {
         this._dropBoxService.storeAuth(this.dropboxAuth);
-        this.router.navigate(['/drop-box']); // Navigate the user  after authorization
+        this.router.navigate([authUrl]); // Navigate the user  after authorization
       }
     } else {
-      this.router.navigate(['/drop-box']); // Navigate the user after authorization
+      this.router.navigate([authUrl]); // Navigate the user after authorization
     }
   }
 
@@ -172,7 +170,7 @@ export class DropBoxApiComponent implements OnInit, OnDestroy {
     event.preventDefault();
     this._dropBoxFileService.deleteFile(filePath);
     this.currentUrl = UrlMethods.decodeWithoutParams(this.router.url);
-    this._dropBoxFileService.getFiles(ROOT_FOLDER); //TODO narazie cały czas z root foldera, przydałoby się zaorać dla każdego folderu
+    this._dropBoxFileService.getFiles(UrlMethods.removePrefixFromUrl(this.currentUrl));
   }
 
   isImage(fileName: string) {
@@ -189,7 +187,7 @@ export class DropBoxApiComponent implements OnInit, OnDestroy {
   updateFiles() {
     this.activatedRoute.url.subscribe(() => {
       this.currentUrl = UrlMethods.decodeWithoutParams(this.router.url);
-      this._dropBoxFileService.getFiles(ROOT_FOLDER); //TODO narazie cały czas z root foldera, przydałoby się zaorać dla każdego folderu
+      this._dropBoxFileService.getFiles(UrlMethods.removePrefixFromUrl(this.currentUrl));
       console.log('Current URL ', this.currentUrl);
     });
     this.fileStreamSubscription = this._dropBoxFileService.stream.subscribe(entries => {
@@ -210,9 +208,10 @@ export class DropBoxApiComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this._dropBoxFileService.createFolder(result);
         this.currentUrl = UrlMethods.decodeWithoutParams(this.router.url);
-        this._dropBoxFileService.getFiles(ROOT_FOLDER); //TODO narazie cały czas z root foldera, przydałoby się zaorać dla każdego folderu
+        const folderPath: string = UrlMethods.removePrefixFromUrl(this.currentUrl) + '/' + result;
+        this._dropBoxFileService.createFolder(folderPath);
+        this._dropBoxFileService.getFiles(UrlMethods.removePrefixFromUrl(this.currentUrl));
       }
     });
   }

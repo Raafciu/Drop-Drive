@@ -6,6 +6,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {DropBoxFileService} from '../../service/drop-box-service/dropBoxFile.service';
 import {NotificationService} from '../../service/notification.service';
+import {UrlMethods} from '../../utils/dropboxUtil';
 
 @Component({
   selector: 'app-drop-box-upload',
@@ -40,8 +41,8 @@ export class DropBoxUploadComponent implements OnInit {
   }
 
   private upload() {
-    // const filePath = UrlMethods.decodeWithoutParams(this.router.url); TODO kiedyś przy strukturze drzewiastej
-    const filePath = '';
+    const pathWithPrefix = UrlMethods.decodeWithoutParams(this.router.url);
+    const filePath = UrlMethods.removePrefixFromUrl(pathWithPrefix);
     console.log(this.filename.name);
     const name = this.filename.name.split('\\').pop();
     const arg = {
