@@ -22,6 +22,26 @@ export class DropBoxApiComponent implements OnInit, OnDestroy {
     this.subscrption = this._dropboxService.getAuth()
       .subscribe(auth => this.dropboxAuth = auth);
 
+    this.getAuthIntoLocalStorage();
+  }
+
+  ngOnDestroy(): void {
+    this.subscrption.unsubscribe();
+  }
+
+  signIn() {
+    this._dropboxService.initClient();
+  }
+
+  isUserSignedIn(): boolean {
+    return this._dropboxService.isSignedIn();
+  }
+
+  signOut() {
+    this._dropboxService.clearAuth();
+  }
+
+  getAuthIntoLocalStorage() {
     if (!this.dropboxAuth.isAuth) {
       const authUrl = this.router.url;
       console.log(this.router.url);
@@ -67,21 +87,5 @@ export class DropBoxApiComponent implements OnInit, OnDestroy {
     } else {
       this.router.navigate(['/drop-box']); // Navigate the user after authorization
     }
-  }
-
-  ngOnDestroy(): void {
-    this.subscrption.unsubscribe();
-  }
-
-  signIn() {
-    this._dropboxService.initClient();
-  }
-
-  isUserSignedIn(): boolean {
-    return this._dropboxService.isSignedIn();
-  }
-
-  signOut() {
-    this._dropboxService.clearAuth();
   }
 }
