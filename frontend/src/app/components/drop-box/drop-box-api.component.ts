@@ -129,12 +129,10 @@ export class DropBoxApiComponent implements OnInit, OnDestroy {
     } else {
       this.dataSource.data = this.compEntries;
     }
-    console.log(this.compEntries);
   }
 
   getData() {
     this.dropboxConnection.usersGetSpaceUsage(null).then(spaceInfo => {
-      console.log(spaceInfo);
       this.storageSpace = (spaceInfo.allocation.allocated / 1024 / 1024 / 1024).toFixed(2);
       this.usedSpace = (spaceInfo.used / 1024 / 1024 / 1024).toFixed(2);
       this.spacePercentage = (this.usedSpace / this.storageSpace) * 100;

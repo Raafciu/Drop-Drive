@@ -21,9 +21,7 @@ export class DropBoxBreadcrumbComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.activatedRoute.url.subscribe(() => {
-      console.log(this.router.url);
       const urlWithoutParams = decodeURIComponent(this.router.url).split('?')[0];
-      console.log(urlWithoutParams);
       this.pathArray = this.getPathsToShowFromUrl(urlWithoutParams);
       if (!this.isUserLogged) {
         this.pathArray = [];
