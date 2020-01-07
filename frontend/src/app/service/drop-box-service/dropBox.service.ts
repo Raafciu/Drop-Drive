@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {Router} from '@angular/router';
-import {DropboxAuth} from '../../model/dropboxAuth';
+import {DropBoxAuth} from '../../model/dropBoxAuth';
 
 const CLIENT_ID = 'w6z7dyorg7kv70d';
 const REDIRECT_URI = 'http://localhost:4200/drop-box';
@@ -13,15 +13,15 @@ const DROPBOX_USERS = 'dropBoxUsers';
 @Injectable({
   providedIn: 'root'
 })
-export class DropboxService {
+export class DropBoxService {
 
-  private dropboxAuth: DropboxAuth = {isAuth: false};
+  private dropBoxAuth: DropBoxAuth = {isAuth: false};
   private objBehaviorSubject: BehaviorSubject<any>;
 
   constructor(private router: Router) {
-    this.objBehaviorSubject = new BehaviorSubject(this.dropboxAuth);
+    this.objBehaviorSubject = new BehaviorSubject(this.dropBoxAuth);
 
-    const savedCredentials: DropboxAuth = this.getItem(DROPBOX_USERS);
+    const savedCredentials: DropBoxAuth = this.getItem(DROPBOX_USERS);
     if (savedCredentials) {
       this.storeAuth(savedCredentials);
     }
@@ -30,26 +30,26 @@ export class DropboxService {
   initClient() {
     const urlAuth = 'https://www.dropbox.com/oauth2/authorize?'
       + `client_id=${CLIENT_ID}`
-      // + `&redirect_uri=${REDIRECT_URI}`
+      + `&redirect_uri=${REDIRECT_URI}`
       + `&response_type=${RESPONSE_TYPE}`;
     console.log(urlAuth);
     window.location.href = urlAuth;
   }
 
-  getAuth(): BehaviorSubject<DropboxAuth> {
+  getAuth(): BehaviorSubject<DropBoxAuth> {
     return this.objBehaviorSubject;
   }
 
-  storeAuth(inDropboxAuth: DropboxAuth) {
-    this.dropboxAuth = inDropboxAuth;
-    this.setItem(DROPBOX_USERS, this.dropboxAuth);
-    return this.objBehaviorSubject.next(this.dropboxAuth);
+  storeAuth(inDropboxAuth: DropBoxAuth) {
+    this.dropBoxAuth = inDropboxAuth;
+    this.setItem(DROPBOX_USERS, this.dropBoxAuth);
+    return this.objBehaviorSubject.next(this.dropBoxAuth);
   }
 
   clearAuth() {
-    this.dropboxAuth = {};
+    this.dropBoxAuth = {};
     this.clear();
-    return this.objBehaviorSubject.next(this.dropboxAuth);
+    return this.objBehaviorSubject.next(this.dropBoxAuth);
   }
 
   getItem(key: string) {
@@ -84,12 +84,17 @@ export class DropboxService {
   clear() {
     try {
       if (typeof (Storage) !== 'undefined') {
-        localStorage.clear();
+        localStorage.removeItem(DROPBOX_USERS);
       } else {
         return false;
       }
     } catch (error) {
       return error;
     }
+  }
+
+  isSignedIn(): boolean {
+    const savedCredentials: DropBoxAuth = this.getItem(DROPBOX_USERS);
+    return !!savedCredentials;
   }
 }

@@ -22,7 +22,7 @@ import {BreadcrumbService} from './service/breadcrumb.service';
 import {DialogInputComponent} from './components/dialog-input/dialog-input.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UploadFilesComponent} from './components/upload-files/upload-files.component';
-import {DropboxService} from './service/drop-box-service/dropbox.service';
+import {DropBoxService} from './service/drop-box-service/dropBox.service';
 import {CompanyService} from './service/company-service/company.service';
 import {AppLoginFormComponent} from './components/app-login-form/app-login-form.component';
 import {CompanyAppService} from './service/company-service/companyApp.service';
@@ -32,6 +32,10 @@ import {ReportService} from './service/company-service/report.service';
 import {DialogReportDetailsComponent} from './components/dialog-report-details/dialog-report-details.component';
 import {AddNoteComponent} from './components/add-note/add-note.component';
 import {NoteService} from './service/company-service/note.service';
+import {DropBoxFileService} from './service/drop-box-service/dropBoxFile.service';
+import {DropBoxContentComponent} from './components/drop-box-content/drop-box-content.component';
+import {DropBoxUploadComponent} from './components/drop-box-upload/drop-box-upload.component';
+import {DropBoxBreadcrumbComponent} from './components/drop-box-breadcrumb/drop-box-breadcrumb.component';
 
 export function initGapi(gapiService: GapiService) {
   return () => gapiService.initClient();
@@ -53,7 +57,10 @@ export function initGapi(gapiService: GapiService) {
     AppRegisterFormComponent,
     AddReportComponent,
     DialogReportDetailsComponent,
-    AddNoteComponent
+    AddNoteComponent,
+    DropBoxContentComponent,
+    DropBoxUploadComponent,
+    DropBoxBreadcrumbComponent
   ],
   imports: [
     BrowserModule,
@@ -72,11 +79,12 @@ export function initGapi(gapiService: GapiService) {
     FileService,
     NotificationService,
     BreadcrumbService,
-    DropboxService,
+    DropBoxService,
     CompanyService,
     CompanyAppService,
     ReportService,
-    NoteService
+    NoteService,
+    DropBoxFileService
   ],
   bootstrap: [AppComponent],
   entryComponents: [

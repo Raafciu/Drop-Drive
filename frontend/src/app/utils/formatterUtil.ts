@@ -17,7 +17,7 @@ export class FormatterUtil {
 
     let size: number = parseInt(stringSize);
     if (size < Math.pow(1024, 1)) {
-      return size.toString();
+      return size.toString() + ' B';
     } else if (size < Math.pow(1024, 2)) {
       return Math.floor(size / Math.pow(1024, 1)) + ' KB';
     } else if (size < Math.pow(1024, 3)) {

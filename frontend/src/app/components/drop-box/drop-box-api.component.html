@@ -1,59 +1,66 @@
 <div class="container">
   <mat-toolbar class="toolbar">
     <mat-toolbar-row>
-      <div >
+      <div *ngIf="!isUserSignedIn()">
         <button mat-raised-button (click)="signIn()">Zaloguj się</button>
       </div>
-<!--      <div *ngIf="isSignedIn()">-->
-<!--        <mat-label class="user-label">{{loggedUser.email}}</mat-label>-->
-<!--        <span class="vertical-separator"></span>-->
-<!--        <button mat-button (click)="signOut()">Wyloguj się</button>-->
-<!--      </div>-->
+      <div *ngIf="isUserSignedIn()">
+                <mat-label class="user-label">{{dropboxAuth.email}}</mat-label>
+                <span class="vertical-separator"></span>
+        <button mat-button (click)="signOut()">Wyloguj się</button>
+        <span class="vertical-separator"></span>
+        <button mat-button (click)="createNewFolder()">Stwórz folder</button>
+        <span class="vertical-separator"></span>
+      </div>
+      <app-drop-box-upload *ngIf="isUserSignedIn()"></app-drop-box-upload>
     </mat-toolbar-row>
   </mat-toolbar>
 
-<!--  <breadcrumb [breadCrumbItems]="breadCrumbItems" (onSelectedItemChanged)="onSelectedItemChanged($event)"-->
-<!--              (onSelectedOptionChanged)="onSelectedOptionChanged($event)"></breadcrumb>-->
+  <drop-box-breadcrumb [isUserLogged]="dropboxAuth.isAuth"></drop-box-breadcrumb>
 
-<!--  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="isSignedIn()">-->
-<!--    <ng-container matColumnDef="icon">-->
-<!--      <th mat-header-cell *matHeaderCellDef></th>-->
-<!--      <td mat-cell *matCellDef="let item">-->
-<!--        <mat-icon>{{item.icon}}</mat-icon>-->
-<!--      </td>-->
-<!--    </ng-container>-->
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="isUserSignedIn()">
+    <ng-container matColumnDef="icon">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let item">
+        <mat-icon>{{item[".tag"]}}</mat-icon>
+      </td>
+    </ng-container>
 
-<!--    <ng-container matColumnDef="name">-->
-<!--      <th mat-header-cell *matHeaderCellDef> Nazwa</th>-->
-<!--      <td mat-cell *matCellDef="let item" [class.visible-cursor]="isFolder(item)"-->
-<!--          (click)="navigateTo(item)"> {{item.name}} </td>-->
-<!--    </ng-container>-->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Nazwa</th>
+      <td mat-cell *matCellDef="let item" [class.visible-cursor]="isFolder(item)">
+        <a *ngIf="isFolder(item)" routerLink="{{addPrefixToUrl(item.path_lower)}}" >{{item.name}}</a>
+        <span *ngIf="!isFolder(item)">{{item.name}}</span>
+      </td>
+    </ng-container>
 
-<!--    <ng-container matColumnDef="modifiedTime">-->
-<!--      <th mat-header-cell *matHeaderCellDef>Ostatnio edytowane</th>-->
-<!--      <td mat-cell *matCellDef="let item"> {{item.modifiedTime}} </td>-->
-<!--    </ng-container>-->
+    <ng-container matColumnDef="modifiedTime">
+      <th mat-header-cell *matHeaderCellDef>Ostatnio edytowane</th>
+      <td mat-cell *matCellDef="let item"> {{item.client_modified | date:'yyyy-MM-dd HH:mm'}} </td>
+    </ng-container>
 
-<!--    <ng-container matColumnDef="size">-->
-<!--      <th mat-header-cell *matHeaderCellDef>Rozmiar pliku</th>-->
-<!--      <td mat-cell *matCellDef="let item"> {{item.size}} </td>-->
-<!--    </ng-container>-->
+    <ng-container matColumnDef="size">
+      <th mat-header-cell *matHeaderCellDef>Rozmiar pliku</th>
+      <td mat-cell *matCellDef="let item"> {{sizeFormat(item.size)}} </td>
+    </ng-container>
 
-<!--    <ng-container matColumnDef="delete">-->
-<!--      <th mat-header-cell *matHeaderCellDef></th>-->
-<!--      <td mat-cell *matCellDef="let item">-->
-<!--        <mat-icon class="visible-cursor" (click)="deleteFile(item)">delete</mat-icon>-->
-<!--      </td>-->
-<!--    </ng-container>-->
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let item">
+        <mat-icon class="visible-cursor" (click)="deleteFile(item.path_lower, $event)">delete</mat-icon>
+      </td>
+    </ng-container>
 
-<!--    <ng-container matColumnDef="download">-->
-<!--      <th mat-header-cell *matHeaderCellDef></th>-->
-<!--      <td mat-cell *matCellDef="let item">-->
-<!--        <mat-icon class="visible-cursor" (click)="downloadFile(item)" *ngIf="!isFolder(item)">cloud_download</mat-icon>-->
-<!--      </td>-->
-<!--    </ng-container>-->
+    <ng-container matColumnDef="download">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let item">
+        <mat-icon class="visible-cursor" *ngIf="!isFolder(item)"
+                  (click)="downloadFile(item.path_lower, item.name, $event)">cloud_download
+        </mat-icon>
+      </td>
+    </ng-container>
 
-<!--    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
-<!--    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
-<!--  </table>-->
-<!--</div>-->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
