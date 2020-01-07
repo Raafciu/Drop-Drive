@@ -29,5 +29,14 @@ export const UrlMethods = {
       console.log(error);
       return null;
     }
+  },
+
+  addPrefixToUrl(url: string) {
+    try {
+      return PREFIX + '/' + url;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
   }
 };

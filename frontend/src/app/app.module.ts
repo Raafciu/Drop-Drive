@@ -35,6 +35,7 @@ import {NoteService} from './service/company-service/note.service';
 import {DropBoxFileService} from './service/drop-box-service/dropBoxFile.service';
 import {DropBoxContentComponent} from './components/drop-box-content/drop-box-content.component';
 import {DropBoxUploadComponent} from './components/drop-box-upload/drop-box-upload.component';
+import {DropBoxBreadcrumbComponent} from './components/drop-box-breadcrumb/drop-box-breadcrumb.component';
 
 export function initGapi(gapiService: GapiService) {
   return () => gapiService.initClient();
@@ -58,7 +59,8 @@ export function initGapi(gapiService: GapiService) {
     DialogReportDetailsComponent,
     AddNoteComponent,
     DropBoxContentComponent,
-    DropBoxUploadComponent
+    DropBoxUploadComponent,
+    DropBoxBreadcrumbComponent
   ],
   imports: [
     BrowserModule,

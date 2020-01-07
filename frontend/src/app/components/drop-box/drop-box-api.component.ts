@@ -218,6 +218,10 @@ export class DropBoxApiComponent implements OnInit, OnDestroy {
     });
   }
 
+  addPrefixToUrl(url: string) {
+    return UrlMethods.addPrefixToUrl(url);
+  }
+
   ngOnDestroy(): void {
     this.subscrption.unsubscribe();
     if (this.fileStreamSubscription) {

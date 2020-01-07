@@ -16,8 +16,7 @@
     </mat-toolbar-row>
   </mat-toolbar>
 
-  <!--  <breadcrumb [breadCrumbItems]="breadCrumbItems" (onSelectedItemChanged)="onSelectedItemChanged($event)"-->
-  <!--              (onSelectedOptionChanged)="onSelectedOptionChanged($event)"></breadcrumb>-->
+  <drop-box-breadcrumb></drop-box-breadcrumb>
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="isUserSignedIn()">
     <ng-container matColumnDef="icon">
@@ -29,8 +28,10 @@
 
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Nazwa</th>
-      <td mat-cell *matCellDef="let item" [class.visible-cursor]="isFolder(item)"
-          > {{item.name}} </td>
+      <td mat-cell *matCellDef="let item" [class.visible-cursor]="isFolder(item)">
+        <a *ngIf="isFolder(item)" routerLink="{{addPrefixToUrl(item.path_lower)}}" >{{item.name}}</a>
+        <span *ngIf="!isFolder(item)">{{item.name}}</span>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="modifiedTime">
