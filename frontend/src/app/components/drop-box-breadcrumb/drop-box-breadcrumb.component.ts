@@ -1,7 +1,7 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
-import {PREFIX} from '../../utils/dropboxUtil';
+import {PREFIX, PREFIX_AFTER_SIGNED} from '../../utils/dropboxUtil';
 
 @Component({
   selector: 'drop-box-breadcrumb',
@@ -13,6 +13,8 @@ export class DropBoxBreadcrumbComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   private pathArray: PathInfo[];
 
+  @Input() private isUserLogged: boolean;
+
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router) {
   }
@@ -23,11 +25,20 @@ export class DropBoxBreadcrumbComponent implements OnInit, OnDestroy {
       const urlWithoutParams = decodeURIComponent(this.router.url).split('?')[0];
       console.log(urlWithoutParams);
       this.pathArray = this.getPathsToShowFromUrl(urlWithoutParams);
+      if (!this.isUserLogged) {
+        this.pathArray = [];
+      }
     });
   }
 
   getPathsToShowFromUrl(currentPath: string) {
-    currentPath = currentPath.substr(1);
+    if (currentPath.includes(PREFIX_AFTER_SIGNED)) {
+      currentPath = PREFIX.substr(1);
+    } else {
+      currentPath = currentPath.substr(1);
+    }
+
+
     let paths = currentPath.split('/');
     if (currentPath === '' || currentPath === '/') {
       paths = [''];

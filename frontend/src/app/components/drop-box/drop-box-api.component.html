@@ -16,7 +16,7 @@
     </mat-toolbar-row>
   </mat-toolbar>
 
-  <drop-box-breadcrumb></drop-box-breadcrumb>
+  <drop-box-breadcrumb [isUserLogged]="dropboxAuth.isAuth"></drop-box-breadcrumb>
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="isUserSignedIn()">
     <ng-container matColumnDef="icon">
