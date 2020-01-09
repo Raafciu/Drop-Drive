@@ -158,6 +158,7 @@ export class GoogleDriveApiComponent implements OnInit {
         this._fileService.createFile(this._breadcrumbService.currentItem.id, result).then(() => {
           this.refreshFilesForFolder(this._breadcrumbService.currentItem.id);
         });
+        this._notificationService.success('Dodano');
       }
     });
   }
