@@ -14,11 +14,18 @@ body {
 }
 
 $bg-success: #18c131;
+$bg-warning: gold;
 $bg-error: #a61a13;
 
 .notification-success {
   background: $bg-success;
   text-align: center;
+}
+
+.notification-warning {
+  background: $bg-warning;
+  text-align: center;
+  color:white;
 }
 
 .notification-error {

@@ -80,13 +80,13 @@ export class AppRegisterFormComponent {
             this._notificationService.success('Dziękujemy za rejestracje. Teraz możesz się zalogować');
           }, error => this._notificationService.error('Wystąpił błąd, prosimy spróbować ponownie później'));
         } else {
-          this._notificationService.error('Podany login istnieje w bazie danych');
+          this._notificationService.warning('Podany login istnieje w bazie danych');
         }
       } else {
-        this._notificationService.error('Hasła nie są takie same');
+        this._notificationService.warning('Hasła nie są takie same');
       }
     } else {
-      this._notificationService.error('Wypełnij wszystkie pola');
+      this._notificationService.warning('Wypełnij wszystkie pola');
     }
   }
 
