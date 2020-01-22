@@ -1,7 +1,7 @@
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 html {
-  background-color: #faf3f5;
+  background-color: darkslategrey;
 }
 
 body {
@@ -31,4 +31,17 @@ $bg-error: #a61a13;
 .notification-error {
   background: $bg-error;
   text-align: center;
+}
+
+.toolbar {
+  width: 100%;
+  background-color: darkslategrey;
+  color: #D7D7D7;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2),
+  0 8px 10px 1px rgba(0, 0, 0, .14),
+  0 3px 14px 2px rgba(0, 0, 0, .12);
+}
+
+.toolbar-row {
+  box-shadow: -2px 3px 7px #000;
 }
