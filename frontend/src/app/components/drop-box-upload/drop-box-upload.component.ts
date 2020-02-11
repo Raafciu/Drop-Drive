@@ -67,6 +67,7 @@ export class DropBoxUploadComponent implements OnInit {
         this._notificationService.success('Import zakończony pomyślnie');
       },
       error => {
+        this._notificationService.error('Wystąpił błąd, prosimy spróbować ponownie później');
         console.error('error', error);
       });
     return send;

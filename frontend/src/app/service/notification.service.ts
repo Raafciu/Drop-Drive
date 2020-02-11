@@ -9,9 +9,10 @@ export class NotificationService {
   constructor(private snackBar: MatSnackBar) {
   }
 
-  default(message: string) {
+  warning(message: string) {
     this.snackBar.open(message, null, {
       duration: this.duration,
+      panelClass: ['notification-warning'],
       horizontalPosition: 'center'
     });
   }

@@ -54,7 +54,7 @@ export class AddNoteComponent implements OnInit {
         this.form.reset();
       }, error => this._notificationService.error('Wystąpił błąd, prosimy spróbować ponownie później'));
     } else {
-      this._notificationService.error('Podaj treść notatki');
+      this._notificationService.warning('Podaj treść notatki');
     }
   }
 

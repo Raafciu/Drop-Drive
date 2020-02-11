@@ -84,6 +84,10 @@ export class GoogleDriveApiComponent implements OnInit {
     return fileInfo.isFolder;
   }
 
+  isSizeExists(fileInfo: FileInfo): boolean {
+    return fileInfo.size !== '-';
+  }
+
   deleteFile(file: FileInfo) {
     this.files.splice(this.files.indexOf(file), 1);
     this._fileService.deleteFile(file.id).then(() => {
@@ -95,13 +99,17 @@ export class GoogleDriveApiComponent implements OnInit {
   }
 
   downloadFile(file: FileInfo) {
-    //TODO nie działa dalej.
-    this._fileService.getBlobFile(file).then(response => {
-      console.log(response);
-      let blob: Blob = new Blob([response.body], {type: 'mimeType'});
-      console.log(blob);
-      FileSaver.saveAs(blob, file.name);
-    });
+    //TODO działa, ale dla plików, które mają określoną wielkość
+    //TODO i dla zalogowanego tylko jednego konta google w przeglądarce
+    if(file.webContentLink) {
+      window.location.href = file.webContentLink;
+    }
+    // this._fileService.getBlobFile(file).then(response => {
+    //   console.log(response);
+      // let blob: Blob = new Blob([response.body], {type: 'mimeType'});
+      // console.log(blob);
+      // FileSaver.saveAs(blob, file.name);
+    // });
   }
 
   private navigateTo(file: FileInfo) {
@@ -150,6 +158,7 @@ export class GoogleDriveApiComponent implements OnInit {
         this._fileService.createFile(this._breadcrumbService.currentItem.id, result).then(() => {
           this.refreshFilesForFolder(this._breadcrumbService.currentItem.id);
         });
+        this._notificationService.success('Dodano');
       }
     });
   }

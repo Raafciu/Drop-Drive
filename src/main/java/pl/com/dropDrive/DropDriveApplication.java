@@ -54,7 +54,7 @@ public class DropDriveApplication {
             CompanyUser companyUser2 = new CompanyUser();
             companyUser2.setFirstName("Adam");
             companyUser2.setLastName("Małysz");
-            companyUser2.setUsername("adm1");
+            companyUser2.setUsername("am1");
             //haslo dupa123
             companyUser2.setPassword("863ff78d00331bd4a8b598366013038bc8d715ee069ee5606e5cbd79cd36dca3e878152098b9f78daadf89c39bd81828622b538da7ec543069b2fe010984910a");
             companyUser2.setEmail("adam.malysz@gmail.com");
@@ -71,11 +71,11 @@ public class DropDriveApplication {
             note.setReportId("6");
             noteRepository.save(note);
 
-            Stream.of("Zgłosznenie nr1", "Zgłosznenie nr2", "Zgłosznenie nr3", "Zgłosznenie nr4", "Zgłosznenie nr5").forEach(name -> {
+            Stream.of("Zgłoszenie nr1", "Zgłoszenie nr2", "Zgłoszenie nr3", "Zgłoszenie nr4", "Zgłoszenie nr5").forEach(name -> {
                 Report report = new Report();
                 report.setName(name);
-                report.setShortDescription("SZYBKO ASAP");
-                report.setDescription("Panie psuje sie strona nic nie działa, proszę to jak najszybciej w miare możliwości naprawić");
+                report.setShortDescription("Brak ikonki na głównej stronie");
+                report.setDescription("Brakuje ikonki, prosiłbym o dodanie. Na ten moment strona wygląda nieestetycznie");
                 report.setExpirationDateTime(new SimpleDateFormat().format(new Date()));
                 report.setPrority(8);
                 report.setStatus(ReportStatusEnum.OTWARTE);
@@ -84,9 +84,9 @@ public class DropDriveApplication {
             });
 
             Report report = new Report();
-            report.setName("report5");
-            report.setShortDescription("SZYBKO ASAP");
-            report.setDescription("Panie psuje sie strona nic nie działa, proszę to jak najszybciej w miare możliwości naprawić");
+            report.setName("Tekst strona główna");
+            report.setShortDescription("Brak tekstu na głównej stronie");
+            report.setDescription("Brakuje tekstu, prosiłbym o dodanie. Nie wyświetlają się ważne informacje na stronie");
             report.setExpirationDateTime(new SimpleDateFormat().format(new Date()));
             report.setPrority(8);
             report.setStatus(ReportStatusEnum.OTWARTE);

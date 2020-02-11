@@ -69,7 +69,7 @@ export class AddReportComponent implements OnInit {
         this._notificationService.success('Dodano zgłoszenie');
       }, error => this._notificationService.error('Wystąpił błąd, prosimy spróbować ponownie później'));
     } else {
-      this._notificationService.error('Wypełnij wszystkie pola');
+      this._notificationService.warning('Wypełnij wszystkie pola');
     }
     // window.location.reload();
   }

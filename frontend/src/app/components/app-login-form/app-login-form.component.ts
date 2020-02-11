@@ -49,10 +49,10 @@ export class AppLoginFormComponent {
         }
       });
       if (!isCorrect) {
-        this._notificationService.error('Nieprawidłowy login lub hasło!');
+        this._notificationService.warning('Nieprawidłowy login lub hasło!');
       }
     } else {
-      this._notificationService.error('Wypełnij wszystkie pola');
+      this._notificationService.warning('Wypełnij wszystkie pola');
     }
   }
 
