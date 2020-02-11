@@ -1,0 +1,5 @@
+export enum ReportStatusEnum {
+  OTWARTE = "OTWARTE",
+  ZAMKNIETE = "ZAMKNIETE",
+  W_TRAKCIE_REALIZACJI = "W_TRAKCIE_REALIZACJI"
+}

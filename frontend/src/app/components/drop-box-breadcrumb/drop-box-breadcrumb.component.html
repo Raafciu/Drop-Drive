@@ -1,0 +1,7 @@
+<mat-toolbar>
+    <span class="breadcrumb-item-container" *ngFor="let path of pathArray;let i=index">
+    <button mat-button
+            (click)="navigateLink(path.fullPath)">{{path.path === 'drop-box' ? 'My DropBox' : path.path}}</button>
+          <mat-icon *ngIf="i !== (pathArray.length-1)">keyboard_arrow_right</mat-icon>
+      </span>
+</mat-toolbar>

@@ -1,0 +1,39 @@
+.my-form {
+  width: 100%;
+  min-width: 100%;
+}
+
+mat-card-title,
+mat-card-content {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.note-text-area {
+  min-height: 35px;
+  width: 100%;
+}
+
+.button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.shadow-mard-card {
+  box-shadow: 0 2px 1px 5px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
+}
+
+.p-style {
+  text-align: center;
+  color: coral;
+  margin-bottom: 80px;
+}
+
+.separator {
+  margin-top: 80px;
+}
+
+.note-style {
+  box-shadow: 0 2px 1px 1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
+  padding: 30px;
+}
